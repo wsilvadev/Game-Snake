@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Snake</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <canvas id="snake" width="512" height="512"></canvas>
+
+    <script >
+
+        let canvas = document.getElementById('snake');
+        let context = canvas.getContext('2d');
+        let box = 32;
+        let snake = [];
+       //lista que recebe dois objetos com o valor 8 vezer maior que o box;
+        snake[0] = {
+            x: 8 * box,
+            y: 8 * box
+        }
+        let direction;
+        document.addEventListener("keydown", updateDirection );
+
+        function updateDirection(event){
+
+            if(event.keyCode == 37 && direction != "RIGHT") direction = "LEFT";
+            if(event.keyCode == 38 && direction != "DOWN") direction = "UP";
+            if(event.keyCode == 39 && direction != "LEFT") direction = "RIGHT";
+            if(event.keyCode == 40 && direction != "UP") direction = "DOWN";
+
+        }
+        function drawSnake(){
+        for( var i = 0; i < snake.length; i++){
+        context.fillStyle = "white";
+        //o objeto na posição desejada da lista recebe o valor 32
+        context.fillRect(snake[i].x, snake[i].y, box, box);
+                    }
+                }
+
+        function drawBackground(){
+        // fillStyle é uma propriedade co context que define a cor;
+        //fillRect define os dois ultimos parametros com altura e larguras
+        context.fillStyle = '#454441';
+        context.fillRect(0,0, 16*box, 16*box);
+
+        }
+        function draw(){
+
+        drawBackground();
+        drawSnake();
+        
+        
+        let snakeX = snake[0].x;
+        let snakeY = snake[0].y;
+
+
+        if(direction == "RIGHT") snakeX += box;
+        if(direction == "LEFT") snakeX -= box;
+        if(direction == "UP") snakeY -= box;
+        if(direction == "DOWN") snakeY += box;
+        snake.pop();
+
+
+        let newHead = {
+            x: snakeX,
+            y: snakeY
+        }
+
+        snake.unshift(newHead);
+        }
+        let game = setInterval(draw, 100)
+      
+        </script>
+</body>
+</html>
