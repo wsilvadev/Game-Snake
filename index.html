@@ -7,12 +7,20 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
+    <style>
+    h1{
+        color: rgb(3, 6, 8);
+        font-size: 40px;
+    }
+    </style>
 </head>
 <body>
-    <canvas id="snake" width="500" height="500"></canvas>
+    <canvas id="snake" width="522" height="522">
+    </canvas>
+    <h1 id="text"></h1>
 
     <script >
-
+        let text = document.getElementById('text');
         let canvas = document.getElementById('snake');
         let context = canvas.getContext('2d');
         let box = 32;
@@ -58,12 +66,14 @@
 
         }
         function draw(){
-        if(snake[0].x > 15*box && direction == "RIGHT")snake[0].x = 0;
+        if(snake[0].x > 14.50*box && direction == "RIGHT")snake[0].x = 0;
         if(snake[0].x < 0 && direction == "LEFT")snake[0].x = 15*box;
-        if(snake[0].y > 15*box && direction == "DOWN")snake[0].y = 0;
+        if(snake[0].y > 14.50*box && direction == "DOWN")snake[0].y = 0;
         if(snake[0].y < 0 && direction == "UP")snake[0].y = 15*box;
 
+
         for(let a = 1; a < snake.length; a++){
+           
             if(snake[0].x == snake[a].x && snake[0].y == snake[a].y){
                 clearInterval(game);
                 alert("Game Over ...")
@@ -93,6 +103,39 @@
 
         }
 
+        if(snakeX == food.x || snakeY == food.y){
+           
+           for(let i = 0; i< snake.length;i++){
+              
+            switch(i){
+                   case 10:
+                var textNivel = document.createTextNode("Nivel 2");
+                       var Nivel = document.getElementById('text');
+                       Nivel.appendChild(textNivel);
+                         setInterval( 90);
+                         break;
+                         case 15:
+                var textNivel1 = document.createTextNode("Nivel 3");
+                var Nivel = document.getElementById('text');
+                       Nivel.appendChild(textNivel1);
+                         setInterval(80);
+
+                         break;
+                         case 30:
+                var textNivel2 = document.createTextNode("Nivel 4");
+                       var Nivel = document.getElementById('text');
+                       Nivel.appendChild(textNivel2);
+                         setInterval( 70);
+
+                         break;
+                         default:
+                             setInterval(100);
+                             break;
+               
+                            }
+                }
+            
+        }
 
         let newHead = {
             x: snakeX,
@@ -101,7 +144,9 @@
 
         snake.unshift(newHead);
         }
-        let game = setInterval(draw, 130)
+    
+
+      let game = setInterval(draw, 100)
       
         </script>
 </body>
