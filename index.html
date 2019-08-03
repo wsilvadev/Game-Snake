@@ -9,7 +9,7 @@
     <script src='main.js'></script>
 </head>
 <body>
-    <canvas id="snake" width="512" height="512"></canvas>
+    <canvas id="snake" width="500" height="500"></canvas>
 
     <script >
 
@@ -17,12 +17,12 @@
         let context = canvas.getContext('2d');
         let box = 32;
         let snake = [];
+        let direction;
        //lista que recebe dois objetos com o valor 8 vezer maior que o box;
         snake[0] = {
             x: 8 * box,
             y: 8 * box
         }
-        let direction;
         document.addEventListener("keydown", updateDirection );
 
         function updateDirection(event){
@@ -49,6 +49,11 @@
 
         }
         function draw(){
+        if(snake[0].x > 15*box && direction == "RIGHT")snake[0].x = 0;
+        if(snake[0].x < 0 && direction == "LEFT")snake[0].x = 15*box;
+        if(snake[0].y > 15*box && direction == "DOWN")snake[0].y = 0;
+        if(snake[0].y < 0 && direction == "UP")snake[0].y = 15*box;
+
 
         drawBackground();
         drawSnake();
@@ -72,7 +77,7 @@
 
         snake.unshift(newHead);
         }
-        let game = setInterval(draw, 100)
+        let game = setInterval(draw, 130)
       
         </script>
 </body>
