@@ -23,6 +23,15 @@
             x: 8 * box,
             y: 8 * box
         }
+        let food = {
+            x: Math.floor(Math.random() * 15 + 1) * box,
+            y: Math.floor(Math.random() * 15 + 1) * box
+
+        }
+        function drawFood(){
+            context.fillStyle = "yellow"
+            context.fillRect(food.x, food.y , box, box );
+        }
         document.addEventListener("keydown", updateDirection );
 
         function updateDirection(event){
@@ -54,9 +63,16 @@
         if(snake[0].y > 15*box && direction == "DOWN")snake[0].y = 0;
         if(snake[0].y < 0 && direction == "UP")snake[0].y = 15*box;
 
+        for(let a = 1; a < snake.length; a++){
+            if(snake[0].x == snake[a].x && snake[0].y == snake[a].y){
+                clearInterval(game);
+                alert("Game Over ...")
+            }
+        }
 
         drawBackground();
         drawSnake();
+        drawFood();
         
         
         let snakeX = snake[0].x;
@@ -67,7 +83,15 @@
         if(direction == "LEFT") snakeX -= box;
         if(direction == "UP") snakeY -= box;
         if(direction == "DOWN") snakeY += box;
-        snake.pop();
+        
+
+            if(snakeX != food.x || snakeY != food.y){
+                snake.pop();
+        }else{
+            food.x  = Math.floor(Math.random() * 15 + 1) * box;
+            food.y  = Math.floor(Math.random() * 15 + 1) * box;
+
+        }
 
 
         let newHead = {
